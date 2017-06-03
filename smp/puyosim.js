@@ -139,7 +139,7 @@ function EventSetting() {
                 $("#simData").css("visibility", "visible")
             }
     });
-    
+    /*
     $("#ryoshi").click(function() {
         Ryoshi();
     });
@@ -165,7 +165,7 @@ function EventSetting() {
         flag_tenkishi = 0;
 
     });
-    
+    */
     $("#maxDamage").click(function() {
         showMaxDamage = showMaxDamage ? !1 : !0
     });
