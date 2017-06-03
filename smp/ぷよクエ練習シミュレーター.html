@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://puyosim.com/smp/ -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="content-language" content="ja">
+  
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>ぷよクエ練習シミュレーター</title>
+  <meta name="keywords" content="ぷよぷよクエスト,ぷよクエ,ぷよぷよ">
+  <meta name="description" content="ぷよぷよクエストの練習シミュレータ">
+  <meta name="application-name" content="ぷよクエ練習シミュレータ">
+ <meta name="viewport" content="width=400,user-scalable=no">
+
+
+  <link rel="stylesheet" href="style.css" type="text/css"> 
+  <script async="" src="analytics.js"></script><script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="setting.js"></script>
+  <script type="text/javascript" src="colordata.js"></script>
+  <script type="text/javascript" src="simData.js"></script>
+  <script type="text/javascript" src="charcter.js"></script>
+  <script type="text/javascript" src="chance.js"></script>
+  <script type="text/javascript" src="puyosim.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97204494-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+	<nav>
+		<a href="http://puyosim.com/help.html">説明</a>
+		<a href="http://puyosim.com/cgi/patio/pbbs.cgi">掲示板</a>
+		<a href="https://twitter.com/puyoquerensim">twitter</a>
+		<span id="mail"><a href="javascript:void(0)">メール</a></span><br>
+		<a href="http://puyosim.com/smp/chancelist.html">大連鎖チャンス一覧</a>
+		<a href="http://puyosim.com/smp/damage.html">ダメージ計算</a><br>
+	</nav>
+	
+  <div class="main">
+	<h1>ぷよクエ練習シミュレータ</h1>
+	モード
+	<select id="modeSelect">
+		<option value="0">通常</option>
+		<option value="1">大連鎖チャンス</option>
+		
+	</select><br>
+	グループ
+	<select id="groupSelect">
+		
+	<option value="0">倍率表示</option><option value="1">くろいシグ</option><option value="2">レガムント</option><option value="3">きいろいサタン</option><option value="4">魔獣３色</option><option value="5">魔獣単色</option><option value="6">ベストール３色</option><option value="7">ベストール単色</option></select>
+	<div>
+		<!--span id="skillAbout">リーダースキル：</span--><br>
+		<!--div style="margin:10px; float: left;">
+			<span id="charName1" class="purple">倍率表示</span><br>
+			<img src="./ぷよクエ練習シミュレーター_files/purple.png" id="charImg1" class="char"><br>
+			<span id="atack1" class="purple">攻撃力（主属性）：</span><br>
+			<span id="subAtack1">攻撃力(副属性)：</span>
+		</div-->
+		<!-- div style="margin:10px; float: left;">
+			<span id="charName2" class="purple">倍率表示</span><br>
+			<img src="./ぷよクエ練習シミュレーター_files/purple.png" id="charImg2" class="char"><br>
+			<span id="atack2" class="purple">攻撃力（主属性）：</span><br>
+			<span id="subAtack2">攻撃力(副属性)：</span>
+		</div-->
+		<!--div style="margin:10px; float: left;">
+			<span id="charName3" class="purple">倍率表示</span><br>
+			<img src="./ぷよクエ練習シミュレーター_files/purple.png" id="charImg3" class="char"><br>
+			<span id="atack3" class="purple">攻撃力（主属性）：</span><br>
+			<span id="subAtack3">攻撃力(副属性)：</span>
+		</div-->
+		<!--div style="clear:both;" id="atack1">倍率(小数点たぶん切り上げ)：</div-->
+		<div style="margin:10px;" id="atack1">倍率(四捨五入?)：</div> 
+	</div>
+	</div>
+	<div style="margin:10px;">	
+		<span id="modeNomal">
+			<button type="button" id="newField">新しい盤面</button>
+			<button type="button" id="undo">元に戻す</button>
+		</span>
+		
+		<span id="modeChance" style="display:none;">
+			<select id="chanceSelect">	
+			<option value="0">A-6</option><option value="1">A-8</option><option value="2">B-5</option><option value="3">B-8</option><option value="4">C-5</option><option value="5">C-9</option><option value="6">C-10</option><option value="7">D-5</option><option value="8">D-6</option><option value="9">D-10</option><option value="10">E-5</option><option value="11">E-6</option><option value="12">E-8</option><option value="13">E-10</option><option value="14">F-5</option><option value="15">F-6</option><option value="16">F-8</option><option value="17">G-5</option><option value="18">G-6</option><option value="19">G-7</option><option value="20">G-8</option><option value="21">H-5</option><option value="22">H-6</option><option value="23">H-8</option><option value="24">H-10</option><option value="25">I-5</option><option value="26">J-5</option><option value="27">J-6</option><option value="28">K-5</option><option value="29">L-5</option><option value="30">L-8</option><option value="31">M-7</option><option value="32">M-8</option><option value="33">M-10</option><option value="34">N-5</option><option value="35">N-7</option><option value="36">N-10</option><option value="37">O-5</option><option value="38">O-6</option><option value="39">O-7</option><option value="40">P-5</option><option value="41">P-9</option><option value="42">Q-5</option><option value="43">Q-6</option><option value="44">R-5</option><option value="45">R-6</option><option value="46">S-5</option><option value="47">S-6</option><option value="48">S-7</option><option value="49">S-8</option><option value="50">S-9</option><option value="51">S-10</option><option value="52">T-5</option><option value="53">T-7</option><option value="54">U-5</option><option value="55">U-6</option><option value="56">U-9</option><option value="57">V-5</option><option value="58">V-8</option><option value="59">V-10</option><option value="60">W-5</option><option value="61">W-8</option><option value="62">W-9</option><option value="63">W-10</option><option value="64">X-5</option><option value="65">X-7</option><option value="66">X-8</option><option value="67">Y-5</option><option value="68">Y-6</option><option value="69">Y-7</option><option value="70">Y-10</option><option value="71">Z-6</option><option value="72">Z-8</option><option value="73">AA-8</option><option value="74">AA-10</option><option value="75">AB-5</option><option value="76">AB-6</option><option value="77">AC-6</option><option value="78">AC-7</option><option value="79">AC-9</option><option value="80">AC-10</option><option value="81">AD-7</option><option value="82">AD-9</option><option value="83">AD-10</option><option value="84">AE-6</option><option value="85">AF-10</option><option value="86">AG-5</option><option value="87">AH-5</option><option value="88">AH-6</option><option value="89">AH-9</option><option value="90">AH-10</option><option value="91">AI-5</option><option value="92">AI-6</option><option value="93">AI-7</option><option value="94">AI-10</option><option value="95">AJ-6</option><option value="96">AK-10</option><option value="97">AL-5</option><option value="98">AL-7</option><option value="99">AL-9</option><option value="100">AM-8</option><option value="101">AN-6</option><option value="102">AO-6</option><option value="103">AO-7</option><option value="104">AP-5</option><option value="105">AP-6</option><option value="106">AP-8</option><option value="107">AP-9</option><option value="108">AP-10</option><option value="109">AQ-7</option><option value="110">AR-6</option><option value="111">AS-5</option><option value="112">AT-6</option><option value="113">AU-6</option><option value="114">AU-7</option><option value="115">AU-8</option><option value="116">AU-10</option><option value="117">AV-6</option><option value="118">AV-7</option><option value="119">AW-6</option><option value="120">AX-5</option><option value="121">AX-6</option><option value="122">AX-8</option><option value="123">AX-9</option><option value="124">AY-6</option><option value="125">AZ-5</option><option value="126">AZ-6</option><option value="127">AZ-8</option><option value="128">BA-10</option><option value="129">BB-6</option><option value="130">BB-10</option><option value="131">BC-5</option><option value="132">BD-5</option><option value="133">BD-9</option><option value="134">BE-10</option><option value="135">BF-6</option><option value="136">BG-5</option><option value="137">BG-8</option><option value="138">BH-8</option><option value="139">BI-8</option><option value="140">BJ-10</option><option value="141">BK-8</option><option value="142">BK-10</option><option value="143">BL-10</option><option value="144">BM-10</option><option value="145">BN-7</option><option value="146">BO-10</option><option value="147">BP-6</option><option value="148">BP-8</option><option value="149">BQ-8</option><option value="150">BR-5</option><option value="151">BR-6</option><option value="152">BS-7</option><option value="153">BT-10</option><option value="154">BU-8</option><option value="155">BU-9</option><option value="156">BU-10</option></select>
+			<button type="button" id="chanceCreate">生成</button>
+		</span>
+		
+		<span id="modeQuestion" style="display:none;">
+			<select id="chanceSelect">
+			</select>
+			<button type="button" id="chanceCreate">生成</button>
+		</span>
+		<button type="button" id="shuffle">シャッフル</button>
+		<button type="button" id="simulate">解析</button>
+		<button type="button" id="ryoshi">漁師</button>
+	</div>
+	<div  style="margin:10px;">
+		<button type="button" id="douwa">童話</button>
+		<button type="button" id="akaferi">赤フェ</button>
+		<button type="button" id="on_tenkishi">天騎士ON</button>
+		<button type="button" id="off_tenkishi">天騎士OFF</button>
+		<button type="button" id="std_keshi">通常</button>
+	</div>
+	
+	<div id="simInfo" style=" margin:10px; display:none;">
+		
+	</div>
+	<div id="simData" style=" margin:10px; visibility : hidden;">
+		<span id="simTime">解析時間：</span><br>
+		<button type="button" id="maxDamage">最大ダメージ</button>
+		<button type="button" id="maxRensa">最大連鎖</button>
+		<button type="button" id="maxDeletePuyo">最多消し</button>
+	</div>
+    <div>
+      <canvas id="puyo" width="400" height="298"></canvas>
+    </div>
+    
+    <div>
+    	<span id="rensaNum">連鎖数：</span><br>
+    	<span id="deletePuyoNum">ぷよ消し数：</span>
+    </div>
+    <div style="margin-top: 30px">
+    	<input type="text" id="url" value="" style="width: 600px;">
+    	
+    </div>
+
+  </div>
+
+
+</body></html>

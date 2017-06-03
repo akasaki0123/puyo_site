@@ -1,0 +1,120 @@
+/*----------------------------------------------------------------------
+                                                                   スマートフォン版
+----------------------------------------------------------------------*/
+ 
+  body{
+  	background-color: #eeeeff;
+  				margin: 0px;
+				padding: 0px;
+				min-width: 400px;
+				max-width: 400px;
+				min-height: 400px;
+				max-height: 400px;
+  }
+  .main{
+  	min-width:400px; max-width:400px;
+  }
+  
+  .charSpace
+  {
+  	font-weight: 900;
+  	margin: 0px;
+  	padding:0px;
+  	font-size:10px;
+  	min-width:130px;
+  	max-width:130px;
+  	float: left;
+  }
+  	.char{
+  		width: 50%;
+  	}
+  	
+  	.sumAtack{
+  		clear:both;
+  	}
+	canvas {
+		margin: 0px;
+		padding: 0px;
+	}
+  	h1{
+  		margin:5px;
+  		padding:0px;
+  	}
+  	table{
+  		border:#000000 1px solid;
+  		border-collapse: collapse;
+  	}
+  	th{
+  		border:#000000 1px solid;
+  		margin:0px;
+  		padding:3px;
+  	}
+  	td{
+  		border:#000000 1px solid;
+  		margin:0px;
+  		padding:3px;
+  	}
+  	div{
+  		user-select:none;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-khtml-user-select:none;
+		-webkit-user-drag:none;
+		-khtml-user-drag:none;
+		-ms-user-select: none;
+  	}
+  	p{
+  		line-height: 30px;
+  	}
+  	
+ 	.field{
+		line-height: 0px;
+		background-color: #c8c8c8;
+		margin:0px;
+		padding:0px;
+		width:400px;
+	}
+
+	.root{
+		background-color: #ff80aa;
+	}
+	
+  	.smallName
+  	{
+  		font-size: 12px;
+  	}
+  	.purple{
+  		color:#9600c8;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.yellow{
+  		color:#ffff00;
+	  	text-shadow:0px 2px 1px #999933,0px 1px 1px #999933,1px 1px 1px #999933,
+	  	1px 0px 1px #999933,2px 0px 1px #999933,1px -1px 1px #999933,1px -2px 1px #999933,
+	  	0px -2px 1px #999933,-1px -2px 1px #999933,-2px -2px 1px #999933,-2px -1px 1px #999933,
+	  	-2px 0px 1px #999933,-2px 1px 1px #999933,-1px 1px 1px #999933;
+  	}
+  	.red{
+  		color:#ff0000;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.green{
+  		color:#00ff00;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.blue{
+  		color:#0000ff;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
