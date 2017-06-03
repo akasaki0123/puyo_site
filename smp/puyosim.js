@@ -1,4 +1,4 @@
-function Point(a, b) {
+﻿function Point(a, b) {
     this.x = a;
     this.y = b
 }
@@ -137,31 +137,6 @@ function EventSetting() {
                 $("#simData").css("visibility", "visible")
             }
     });
-    $("#ryoshi").click(function() {
-        Ryoshi();
-    });
-    $("#douwa").click(function() {
-        ndouwa = 4;
-        selectPuyoMax = 10;
-    });
-    $("#akaferi").click(function() {
-        ndouwa = 5;
-        selectPuyoMax = 10;
-    });
-    $("#on_tenkishi").click(function() {
-         flag_tenkishi = 1;
-
-    });
-    $("#off_tenkishi").click(function() {
-         flag_tenkishi = 0;
-
-    });
-    $("#std_keshi").click(function() {
-        ndouwa = 1;
-        selectPuyoMax = 5;
-        flag_tenkishi = 0;
-
-    });
     $("#maxDamage").click(function() {
         showMaxDamage = showMaxDamage ? !1 : !0
     });
@@ -229,11 +204,6 @@ function Load() {
     }
     ;
     img.src = "../img/puyo.png"
-}
-function Ryoshi() {
-    for (b = 0; b < fieldWidth; b++)
-        nextField[b] = 0;
-        /*0:紫 1:黄色*/
 }
 function Update() {
     newField && (newField = !1,
@@ -376,12 +346,11 @@ function DrawDropPuyo() {
     for (var a = 0; a < dropPuyoListNum; a++)
         DrawPuyo(dropPuyoList[a].color, dropPuyoList[a].lineX, dropPuyoList[a].startLineY, dropPuyoList[a].dropY)
 }
-/*a...color(0:purple) b...(colorlist) c...(bunrinum), d...(puyonum)*/
 function AtackCalc(a, b, c, d) {
     for (var e = [1, 1.4, 1.7, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4], f = group[selectGroupNum].comb ? 1.2 : 1, h = 0; 3 > h; h++)
         for (var k = 0; k < c; k++)
-            if (group[selectGroupNum].charData[h].color == b[k] || flag_tenkishi) {
-                var g = 1 + .15 * (d - 4) * ndouwa;
+            if (group[selectGroupNum].charData[h].color == b[k]) {
+                var g = 1 + .15 * (d - 4);
                 g = group[selectGroupNum].charData[h].atack * g * e[a] * f;
                 g = group[selectGroupNum].lPassiveSkill(g);
                 atack[h] += g
