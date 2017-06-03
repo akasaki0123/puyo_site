@@ -151,6 +151,7 @@ function EventSetting() {
         ndouwa = 5;
         selectPuyoMax = 10;
     });
+    */
     $("#on_tenkishi").click(function() {
          flag_tenkishi = 1;
 
@@ -159,6 +160,7 @@ function EventSetting() {
          flag_tenkishi = 0;
 
     });
+    /*
     $("#std_keshi").click(function() {
         ndouwa = 1;
         selectPuyoMax = 5;
