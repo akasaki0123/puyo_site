@@ -143,6 +143,7 @@ function EventSetting() {
     $("#ryoshi").click(function() {
         Ryoshi();
     });
+    */
     $("#douwa").click(function() {
         ndouwa = 4;
         selectPuyoMax = 10;
@@ -151,7 +152,7 @@ function EventSetting() {
         ndouwa = 5;
         selectPuyoMax = 10;
     });
-    */
+    
     $("#on_tenkishi").click(function() {
          flag_tenkishi = 1;
 
