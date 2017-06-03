@@ -1,0 +1,91 @@
+/*----------------------------------------------------------------------
+                                   PC版
+----------------------------------------------------------------------*/
+
+  body{
+  	background-color: #eeeeff;
+  }
+  	.char{
+  		width: 50%;
+  	}
+  	
+  	h1{
+  		margin:5px;
+  		padding:0px;
+  	}
+  	
+  	div.notSelect{
+  		user-select:none;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-khtml-user-select:none;
+		-webkit-user-drag:none;
+		-khtml-user-drag:none;
+		-ms-user-select: none;
+  	}
+  	table{
+  		border:#000000 1px solid;
+  		border-collapse: collapse;
+  	}
+  	th{
+  		border:#000000 1px solid;
+  		margin:0px;
+  		padding:3px;
+  	}
+  	td{
+  		border:#000000 1px solid;
+  		margin:0px;
+  		padding:3px;
+  	}
+  	.smallName
+  	{
+  		font-size: 12px;
+  	}
+  	
+	.field{
+		line-height: 0px;
+		background-color: #c8c8c8;
+		margin:0px;
+		padding:0px;
+		width:400px;
+	}
+
+	.root{
+		background-color: #ff80aa;
+	}
+  	
+  	.purple{
+  		color:#9600c8;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.yellow{
+  		color:#ffff00;
+	  	text-shadow:0px 2px 1px #999933,0px 1px 1px #999933,1px 1px 1px #999933,
+	  	1px 0px 1px #999933,2px 0px 1px #999933,1px -1px 1px #999933,1px -2px 1px #999933,
+	  	0px -2px 1px #999933,-1px -2px 1px #999933,-2px -2px 1px #999933,-2px -1px 1px #999933,
+	  	-2px 0px 1px #999933,-2px 1px 1px #999933,-1px 1px 1px #999933;
+  	}
+  	.red{
+  		color:#ff0000;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.green{
+  		color:#00ff00;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
+  	.blue{
+  		color:#0000ff;
+	  	text-shadow:0px 2px 1px #ffffff,0px 1px 1px #ffffff,1px 1px 1px #ffffff,
+	  	1px 0px 1px #ffffff,2px 0px 1px #ffffff,1px -1px 1px #ffffff,1px -2px 1px #ffffff,
+	  	0px -2px 1px #ffffff,-1px -2px 1px #ffffff,-2px -2px 1px #ffffff,-2px -1px 1px #ffffff,
+	  	-2px 0px 1px #ffffff,-2px 1px 1px #ffffff,-1px 1px 1px #ffffff;
+  	}
