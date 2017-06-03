@@ -26,7 +26,9 @@ function DropPuyoData(a, b, c, d) {
     this.endLineY = d;
     this.ending = !1
 }
-var newField = !1, canvas, ctx, img, hartBoxProb = 100, puyoNum = 5, shuffleNum = 0, field = [[], [], [], [], [], []], nextField = [], copyField = [[], [], [], [], [], []], copyNextField = [], selectNow = !1, selectComplete = !1, mouseCursor = new Point(0,0), selectPuyoPoint = [], selectPuyoNum = 0, selectPuyoMax = 5, selected = !1, rensaPuyoList, rensaPuyoListNum, maxDamage, maxRensaNum, maxRensaToDeletePuyo, maxDeletePuyoNum, maxDeletePuyoToRensa, maxDamagePointNum, maxRensaPointNum, maxDeletePuyoPointNum, simulated = !1, showMaxDeletePuyo, showMaxDamage, showMaxRensa;
+var newField = !1, canvas, ctx, img, hartBoxProb = 100, puyoNum = 5, shuffleNum = 0
+, ndouwa = 4, flag_tenkishi = 0 /*new var by akasaki*/
+, field = [[], [], [], [], [], []], nextField = [], copyField = [[], [], [], [], [], []], copyNextField = [], selectNow = !1, selectComplete = !1, mouseCursor = new Point(0,0), selectPuyoPoint = [], selectPuyoNum = 0, selectPuyoMax = 5, selected = !1, rensaPuyoList, rensaPuyoListNum, maxDamage, maxRensaNum, maxRensaToDeletePuyo, maxDeletePuyoNum, maxDeletePuyoToRensa, maxDamagePointNum, maxRensaPointNum, maxDeletePuyoPointNum, simulated = !1, showMaxDeletePuyo, showMaxDamage, showMaxRensa;
 $(function() {
     var a = GetParam();
     null != a ? xors.load(a.x, a.y, a.z, a.w) : xors.seed($.now());
@@ -137,6 +139,7 @@ function EventSetting() {
                 $("#simData").css("visibility", "visible")
             }
     });
+    
     $("#ryoshi").click(function() {
         Ryoshi();
     });
@@ -162,6 +165,7 @@ function EventSetting() {
         flag_tenkishi = 0;
 
     });
+    
     $("#maxDamage").click(function() {
         showMaxDamage = showMaxDamage ? !1 : !0
     });
