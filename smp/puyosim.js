@@ -139,11 +139,11 @@ function EventSetting() {
                 $("#simData").css("visibility", "visible")
             }
     });
-    /*
+    
     $("#ryoshi").click(function() {
         Ryoshi();
     });
-    */
+    
     $("#douwa").click(function() {
         ndouwa = 4;
         selectPuyoMax = 10;
