@@ -160,14 +160,14 @@ function EventSetting() {
          flag_tenkishi = 0;
 
     });
-    /*
+    
     $("#std_keshi").click(function() {
         ndouwa = 1;
         selectPuyoMax = 5;
         flag_tenkishi = 0;
 
     });
-    */
+    
     $("#maxDamage").click(function() {
         showMaxDamage = showMaxDamage ? !1 : !0
     });
