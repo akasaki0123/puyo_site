@@ -47,12 +47,44 @@
 	
   <div class="main">
 	<h1>ぷよクエ練習シミュレータ</h1>
-	モード
-	<select id="modeSelect">
-		<option value="0">通常</option>
-		<option value="1">大連鎖チャンス</option>
-		
-	</select><br>
+	<fieldset>
+		<legend>設定</legend>
+		モード
+		<select id="modeSelect">
+			<option value="0" selected="">通常</option>
+			<option value="1">大連鎖チャンス</option>
+			
+		</select><br>
+		ネクネク
+		<select id="nexnext">
+			<option value="0" selected="">なし</option>
+			<option value="1">あり</option>
+			
+		</select>
+		配色補正
+		<select id="colorEquality">
+			<option value="0" selected="">なし</option>
+			<option value="1">あり</option>
+			
+		</select><br>
+		落下速度
+		<select id="dropSpeed">
+			<option value="0">超速い</option>
+			<option value="1">速い</option>
+			<option value="2" selected="">普通</option>
+			<option value="3">遅い</option>
+			<option value="4">超遅い</option>
+		</select>
+		漁師
+		<select id="nextColor">
+			<option value="-1" selected="">なし</option>
+			<option value="0">紫</option>
+			<option value="1">黄</option>
+			<option value="2">赤</option>
+			<option value="3">緑</option>
+			<option value="4">青</option>
+		</select>
+	</fieldset>
 	グループ
 	<select id="groupSelect">
 		
