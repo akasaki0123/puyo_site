@@ -1,3 +1,4 @@
+/*puyo calc AtackCalc */
 function Point(a, b) {
     this.x = a;
     this.y = b
@@ -17,7 +18,7 @@ function Body(a, b, c, d) {
     this.x2 = c;
     this.y2 = d
 }
-var mode = 0, nowchanceNum = -1, puyoBody = new Body(10,10,35,35), dropSpeed = 3.8, dropPuyoList, dropPuyoListNum, atack, subAtack, rensaNum, deletePuyoNum, colorList;
+var mode = 0, modeNomal = 0, modeChance = 1, modeQuestion = 2, colorBalanceFlag = !1, nexnextFlag = !1, nextColorChange = noneColor,nowchanceNum = -1, puyoBody = new Body(10,10,35,35), dropSpeedList = [12.5, 10, 7.5, 5, 2.5], dropSpeed = 2/*(index)*/, dropPuyoList, dropPuyoListNum, atack, subAtack, rensaNum, deletePuyoNum, colorList;
 function DropPuyoData(a, b, c, d) {
     this.color = a;
     this.lineX = b;
@@ -31,7 +32,8 @@ var newField = !1, canvas, ctx, img, hartBoxProb = 100, puyoNum = 5, shuffleNum 
 , field = [[], [], [], [], [], []], nextField = [], copyField = [[], [], [], [], [], []], copyNextField = [], selectNow = !1, selectComplete = !1, mouseCursor = new Point(0,0), selectPuyoPoint = [], selectPuyoNum = 0, selectPuyoMax = 5, selected = !1, rensaPuyoList, rensaPuyoListNum, maxDamage, maxRensaNum, maxRensaToDeletePuyo, maxDeletePuyoNum, maxDeletePuyoToRensa, maxDamagePointNum, maxRensaPointNum, maxDeletePuyoPointNum, simulated = !1, showMaxDeletePuyo, showMaxDamage, showMaxRensa;
 $(function() {
     var a = GetParam();
-    null != a ? xors.load(a.x, a.y, a.z, a.w) : xors.seed($.now());
+    null != a ? xors.input(a.x, a.y, a.z, a.w) : xors.seed($.now());
+	colorBalance.init();
     UrlShow();
     GropSelectBox();
     Load();
@@ -41,11 +43,6 @@ $(function() {
     GroupSelect(0);
     ChanceListDataRegist()
 });
-function NotPcJump() {
-    var a = navigator.userAgent;
-    if (-1 != a.search(/iPhone/) || -1 != a.search(/iPad/) || -1 != a.search(/iPod/) || -1 != a.search(/Android/))
-        location.href = "./smp/"
-}
 function DataInit() {
     dropPuyoList = [];
     dropPuyoListNum = 0;
@@ -58,7 +55,6 @@ function DataInit() {
     colorList = [!1, !1, !1, !1, !1];
     mouseCursor = new Point(0,0);
     DeleteScoreData();
-    DeleteScore()
 }
 function SimDataInit() {
     maxDeletePuyoPointNum = maxRensaPointNum = maxDamagePointNum = maxDeletePuyoToRensa = maxDeletePuyoNum = maxRensaToDeletePuyo = maxRensaNum = maxDamage = 0;
@@ -85,13 +81,11 @@ function EventSetting() {
     c.addEventListener("touchstart", a);
     c.addEventListener("touchmove", a);
     c.addEventListener("touchend", a);
-    var d = 0;
     c.addEventListener("touchstart", function(a) {
         var b = a.changedTouches[0]
           , c = $("#puyo").offset();
         a = b.pageX - c.left;
         b = b.pageY - c.top;
-        d = 0;
         mouseCursor.x = a;
         mouseCursor.y = b;
         if (0 > a || a > canvasWidth || 0 > b || b > canvasHeight)
@@ -99,7 +93,6 @@ function EventSetting() {
         selectNow = !0
     });
     c.addEventListener("touchmove", function(a) {
-        d++;
         var b = a.changedTouches[0];
         if (selectNow) {
             var c = $("#puyo").offset();
@@ -119,7 +112,9 @@ function EventSetting() {
         DataInit();
         SimDataInit();
         FieldInit();
-        shuffleNum = 0
+        shuffleNum = 0;
+        colorBalance.init();
+        nextColorChange != noneColor && NextColorChange()
     });
     $("#undo").click(function() {
         DataInit();
@@ -139,11 +134,9 @@ function EventSetting() {
                 $("#simData").css("visibility", "visible")
             }
     });
-    
-    $("#ryoshi").click(function() {
+   /* $("#ryoshi").click(function() {
         Ryoshi();
-    });
-    
+    });*/
     $("#douwa").click(function() {
         ndouwa = 4;
         selectPuyoMax = 10;
@@ -178,17 +171,46 @@ function EventSetting() {
     $("#maxDeletePuyo").click(function() {
         showMaxDeletePuyo = showMaxDeletePuyo ? !1 : !0
     });
-    var e = ["modeNomal", "modeChance", "modeQuestion"];
+    var d = ["modeNomal", "modeChance", "modeQuestion"];
     $("#modeSelect").change(function() {
         DataInit();
         SimDataInit();
         shuffleNum = 0;
-        $("#" + e[mode]).css("display", "none");
+        $("#" + d[mode]).css("display", "none");
         mode = parseInt($(this).val());
-        $("#" + e[mode]).css("display", "inline");
+        $("#" + d[mode]).css("display", "inline");
         0 == mode && FieldInit();
         1 == mode && (fieldLoad(chanceField[0].fieldData, chanceField[0].nextData),
         nowchanceNum = 0)
+    });
+    $("#nexnext").change(function() {
+        if (selected) {
+            var a = nexnextFlag ? 1 : 0;
+            $("#nexnext").val(a)
+        } else
+            nexnextFlag = 0 == parseInt($(this).val()) ? !1 : !0
+    });
+    $("#colorEquality").change(function() {
+        if (selected) {
+            var a = colorBalanceFlag ? 1 : 0;
+            $("#colorEquality").val(a)
+        } else
+            colorBalanceFlag = 0 == parseInt($(this).val()) ? !1 : !0
+    });
+    $("#dropSpeed").change(function() {
+        selected ? $("#dropSpeed").val(dropSpeed) : dropSpeed = parseInt($(this).val())
+    });
+    $("#nextColor").change(function() {
+        if (selected)
+            $("#nextColor").val(nextColorChange);
+        else {
+            var a = parseInt($(this).val());
+            a != noneColor ? (nextColorChange == noneColor && NextCopy(),
+            nextColorChange = a,
+            NextColorChange()) : (nextColorChange = a,
+            NextRestore());
+            SimDataInit()
+        }
     });
     $("#groupSelect").change(function() {
         SimDataInit();
@@ -218,11 +240,12 @@ function EventSetting() {
     })
 }
 function Undo() {
-    for (var a = 0; a < fieldHeight; a++)
-        for (var b = 0; b < fieldWidth; b++)
-            field[a][b] = copyField[a][b];
-    for (b = 0; b < fieldWidth; b++)
-        nextField[b] = copyNextField[b]
+    xors.load();
+    colorBalance.init();
+    FieldInit();
+    for (var a = 0; a < shuffleNum; a++)
+        FieldShuffle();
+    nextColorChange != noneColor && NextColorChange()
 }
 function Load() {
     img = new Image;
@@ -237,11 +260,7 @@ function Load() {
     ;
     img.src = "../img/puyo.png"
 }
-function Ryoshi() {
-    for (b = 0; b < fieldWidth; b++)
-        nextField[b] = 0;
-        /*0:紫 1:黄色*/
-}
+
 function Update() {
     newField && (newField = !1,
     FieldInit());
@@ -255,7 +274,11 @@ function UpdateDropPuyo() {
     PuyoDropCompleteCheck() && (Rensa() ? (DropPuyoCheck(),
     0 == dropPuyoListNum && (DropNextPuyo(),
     0 == dropPuyoListNum && DrawScore())) : (DropNextPuyo(),
-    0 == dropPuyoListNum && DrawScore())))
+    0 == dropPuyoListNum && (DrawScore(),
+    nexnextFlag && (DataInit(),
+    SimDataInit(),
+    shuffleNum = 0,
+    nextColorChange == noneColor ? SetNextPuyo() : NextColorChange())))))
 }
 function OjamaPuyoDelete(a, b) {
     for (var c = [new Point(0,-1), new Point(1,0), new Point(0,1), new Point(-1,0)], d, e, f = 0; 4 > f; f++)
@@ -274,8 +297,8 @@ function MoveDropPuyo() {
     for (var a, b, c = 0; c < dropPuyoListNum; c++)
         a = dropPuyoList[c].startLineY * puyoHeight + nextHeight,
         b = dropPuyoList[c].endLineY * puyoHeight + nextHeight,
-        a + dropPuyoList[c].dropY < b ? dropPuyoList[c].dropY += dropSpeed : (dropPuyoList[c].dropY = b - a,
-        dropPuyoList[c].ending = !0)
+        a + dropPuyoList[c].dropY < b ? dropPuyoList[c].dropY += dropSpeedList[dropSpeed] : (dropPuyoList[c].dropY = b - a,
+       	dropPuyoList[c].ending = !0)
 }
 function PuyoDropCompleteCheck() {
     for (var a = 0; a < dropPuyoListNum; a++)
@@ -335,33 +358,69 @@ function DropPuyoCheck() {
     }
 }
 function DropNextPuyo() {
+    if (mode == modeNomal) {
     dropPuyoList = [];
     dropPuyoListNum = 0;
+        nextShuffle = !1;
     for (var a, b = 0; b < fieldWidth; b++) {
         a = 0;
         for (var c = fieldHeight - 1; 0 <= c; c--)
             -1 == field[c][b] && a++;
-        0 < a && -1 != nextField[b] && (dropPuyoList[dropPuyoListNum] = new DropPuyoData(nextField[b],b,-1,a - 1),
+            if (0 < a) {
+                nexnextFlag && !nextShuffle && (xors.change(b + 8 * rensaNum),
+                colorBalanceFlag && colorBalance.shuffle(),
+                nextShuffle = !0);
+                if (-1 != nextField[b])
+                    dropPuyoList[dropPuyoListNum] = new DropPuyoData(nextField[b],b,-1,a - 1),
         nextField[b] = -1,
-        dropPuyoListNum++)
+                    dropPuyoListNum++;
+                else if (nexnextFlag) {
+                    var d = xors.rangeRand(0, hartBoxProb);
+                    d = d == hartBoxProb ? hartBox : colorBalanceFlag ? colorBalance.pop() : d % puyoNum;
+                    dropPuyoList[dropPuyoListNum] = new DropPuyoData(d,b,-1,a - 1);
+                    dropPuyoListNum++
+                }
+                if (nexnextFlag)
+                    for (c = 1; c < a; c++)
+                        d = xors.rangeRand(0, hartBoxProb),
+                        d = d == hartBoxProb ? hartBox : colorBalanceFlag ? colorBalance.pop() : d % puyoNum,
+                        dropPuyoList[dropPuyoListNum] = new DropPuyoData(d,b,-1 - c,a - 1 - c),
+                        dropPuyoListNum++
+            }
+        }
     }
 }
 function FieldInit() {
+    xors.save();
     for (var a, b = 0; b < fieldHeight; b++)
         for (var c = 0; c < fieldWidth; c++)
-            field[b][c] = -1;
+            field[b][c] = blank;
     for (c = 0; c < fieldWidth; c++)
-        nextField[c] = -1;
+        nextField[c] = blank;
     for (b = 0; b < fieldHeight; b++)
         for (c = 0; c < fieldWidth; c++)
-            a = xors.rand() % (hartBoxProb + 1),
+            a = xors.rangeRand(0, hartBoxProb),
             a != hartBoxProb ? (field[b][c] = a % puyoNum,
             JoinFourPuyoCheckStart(field[b][c], c, b) && c--) : field[b][c] = hartBox,
             copyField[b][c] = field[b][c];
-    for (c = 0; c < fieldWidth; c++)
-        a = xors.rand() % hartBoxProb,
-        nextField[c] = a % puyoNum,
-        copyNextField[c] = nextField[c]
+    SetNextPuyo()
+}
+function SetNextPuyo() {
+    for (var a = 0; a < fieldWidth; a++)
+        nextField[a] == blank && (rnd = xors.rangeRand(0, hartBoxProb - 1),
+        nextField[a] = rnd % puyoNum)
+}
+function NextCopy() {
+    for (var a = 0; a < fieldWidth; a++)
+        copyNextField[a] = nextField[a]
+}
+function NextRestore() {
+    for (var a = 0; a < fieldWidth; a++)
+        nextField[a] = copyNextField[a]
+}
+function NextColorChange() {
+    for (var a = 0; a < fieldWidth; a++)
+        nextField[a] = nextColorChange
 }
 function DrawField() {
     ctx.strokeStyle = "rgb(200,200,200)";
@@ -485,10 +544,15 @@ function DrawNext(a, b) {
     ctx.drawImage(img, p.x, p.y, p.width, p.height, b * puyoWidth, 0, nextWidth, nextHeight)
 }
 function FieldShuffle() {
-    for (var a = 0; a < fieldHeight; a++)
-        for (var b = 0; b < fieldWidth; b++)
-            field[a][b] == blank || 4 < field[a][b] || (field[a][b]++,
-            5 == field[a][b] && (field[a][b] = 0))
+    for (var a = 0; a < fieldWidth; a++)
+        nextField[a] == blank || 4 < nextField[a] || (nextField[a]++,
+        5 == nextField[a] && (nextField[a] = 0),
+        copyNextField[a] = nextField[a]);
+    for (var b = 0; b < fieldHeight; b++)
+        for (a = 0; a < fieldWidth; a++)
+            field[b][a] == blank || 4 < field[b][a] || (field[b][a]++,
+            5 == field[b][a] && (field[b][a] = 0),
+            copyField[b][a] = field[b][a])
 }
 var simField = [[], [], [], [], [], [], []]
   , simNextField = [];
@@ -500,7 +564,7 @@ function SimScoreRegist(a) {
         b += subAtack[c];
     b > maxDamage && (maxDamage = b,
     maxDamagePointNum = a);
-    if (rensaNum > maxRensaNum || rensaNum == maxRensaNum && deletePuyoNum > maxRensaToDeletePuyo)
+    if (rensaNum > maxRensaNum || deletePuyoNum > maxRensaToDeletePuyo && rensaNum == maxRensaNum)
         maxRensaNum = rensaNum,
         maxRensaToDeletePuyo = deletePuyoNum,
         maxRensaPointNum = a;
@@ -725,27 +789,4 @@ function fieldLoad(a, b) {
         nextField[d] = b[d];
     return !0
 }
-xors = {
-    x: 123456789,
-    y: 362436069,
-    z: 521288629,
-    w: 88675123,
-    seed: function(a) {
-        xors.w = a
-    },
-    rand: function() {
-        var a = xors.x ^ xors.x << 11;
-        xors.x = xors.y;
-        xors.y = xors.z;
-        xors.z = xors.w;
-        xors.w = xors.w ^ xors.w >>> 19 ^ a ^ a >>> 8;
-        xors.w >>>= 0;
-        return xors.w
-    },
-    load: function(a, b, c, d) {
-        xors.x = a;
-        xors.y = b;
-        xors.z = c;
-        xors.w = d
-    }
-};
+;
